@@ -354,35 +354,35 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.3;
 
 // --- NEW POST-PROCESSING SETUP ---
-const renderPass = new RenderPass(scene, camera);
+// const renderPass = new RenderPass(scene, camera);
 
 // Parameters: resolution, strength, radius, threshold
-const unrealBloomPass = new UnrealBloomPass()
-unrealBloomPass.strength = 0.2
-unrealBloomPass.radius = 1
-unrealBloomPass.threshold = 0.2
-unrealBloomPass.enabled = false
+// const unrealBloomPass = new UnrealBloomPass()
+// unrealBloomPass.strength = 0.2
+// unrealBloomPass.radius = 1
+// unrealBloomPass.threshold = 0.2
+// unrealBloomPass.enabled = false
 
-gui.add(unrealBloomPass,'enabled')
-gui.add(unrealBloomPass,'strength',0,2,0.001)
-gui.add(unrealBloomPass,'radius',0,2,0.001)
-gui.add(unrealBloomPass,'threshold',0,1,0.001)
+// gui.add(unrealBloomPass,'enabled')
+// gui.add(unrealBloomPass,'strength',0,2,0.001)
+// gui.add(unrealBloomPass,'radius',0,2,0.001)
+// gui.add(unrealBloomPass,'threshold',0,1,0.001)
 
 
-const renderTarget = new THREE.WebGLRenderTarget(
-    sizes.width,
-    sizes.height,
-    {
-        samples:renderer.getPixelRatio === 1 ? 2 : 0
-    }
+// const renderTarget = new THREE.WebGLRenderTarget(
+//     sizes.width,
+//     sizes.height,
+//     {
+//         samples:renderer.getPixelRatio === 1 ? 2 : 0
+//     }
 
-)
+// )
 
-const composer = new EffectComposer(renderer,renderTarget);
-composer.addPass(renderPass); // 1. Render the base scene
-composer.addPass(unrealBloomPass)   // 2. Add the glowing bloom
-composer.setSize(sizes.width, sizes.height)
-composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+// const composer = new EffectComposer(renderer,renderTarget);
+// composer.addPass(renderPass); // 1. Render the base scene
+// composer.addPass(unrealBloomPass)   // 2. Add the glowing bloom
+// composer.setSize(sizes.width, sizes.height)
+// composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 window.addEventListener('resize',()=>{
   sizes.width = window.innerWidth;
   sizes.height = window.innerHeight;
@@ -393,7 +393,7 @@ window.addEventListener('resize',()=>{
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  composer.setSize(sizes.width, sizes.height);
+  // composer.setSize(sizes.width, sizes.height);
 })
 
 renderer.setSize(sizes.width, sizes.height);
@@ -428,8 +428,8 @@ function tick(time){
   cameraGroup.position.x += (targetX - cameraGroup.position.x) * parallaxSpeed * deltaTime;
   cameraGroup.position.y += (targetY - cameraGroup.position.y) * parallaxSpeed * deltaTime;
   controls.update()
-  // renderer.render(scene, camera);
-  composer.render(scene,camera);
+  renderer.render(scene, camera);
+  // composer.render(scene,camera);
   window.requestAnimationFrame(tick);
 }
 tick();
