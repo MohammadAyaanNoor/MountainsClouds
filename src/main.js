@@ -370,8 +370,8 @@ gui.add(unrealBloomPass,'threshold',0,1,0.001)
 
 
 const renderTarget = new THREE.WebGLRenderTarget(
-    800,
-    600,
+    sizes.width,
+    sizes.height,
     {
         samples:renderer.getPixelRatio === 1 ? 2 : 0
     }
